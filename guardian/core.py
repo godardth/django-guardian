@@ -121,7 +121,7 @@ class ObjectPermissionChecker(object):
         return user_filters
 
     def get_user_perms(self, obj):
-        ctype = ContentType.objects.get_for_model(obj)
+        ctype = get_ctype_from_polymorphic(obj)
 
         perms_qs = Permission.objects.filter(content_type=ctype)
         user_filters = self.get_user_filters(obj)
@@ -131,7 +131,7 @@ class ObjectPermissionChecker(object):
         return user_perms
 
     def get_group_perms(self, obj):
-        ctype = ContentType.objects.get_for_model(obj)
+        ctype = get_ctype_from_polymorphic(obj)
 
         perms_qs = Permission.objects.filter(content_type=ctype)
         group_filters = self.get_group_filters(obj)
